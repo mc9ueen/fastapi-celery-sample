@@ -11,7 +11,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     fastapi_config: str
-    base_dir: Optional[pathlib.Path] = pathlib.Path(__file__).parent.parent
+    base_dir: Optional[pathlib.Path] = pathlib.Path(__file__).parent.parent.parent
     database_url: Optional[str] = f"sqlite:///{base_dir}/db.sqlite3"
     database_connect_dict: Optional[dict] = {}
     celery_broker: str
@@ -34,7 +34,7 @@ class TestSettings(Settings):
 
 
 @lru_cache
-def get_settings() -> BaseSettings:
+def get_settings() -> Settings:
     config_cls_dict = {
         "dev": DevSettings,
         "prod": ProdSettings,
