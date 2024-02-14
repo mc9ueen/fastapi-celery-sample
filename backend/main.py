@@ -1,11 +1,12 @@
 import time
 
 from celery import Celery
-from fastapi import FastAPI
 
+from backend.core import create_app
 from backend.core.config import settings
 
-app = FastAPI()
+app = create_app()
+
 celery = Celery(
     __name__,
     broker=settings.celery_broker,
