@@ -1,21 +1,20 @@
 import os
 import pathlib
-from typing import Optional
 from functools import lru_cache
 
-from dotenv import load_dotenv
-from pydantic.env_settings import BaseSettings
 
-load_dotenv()
-
-
-class Settings(BaseSettings):
-    fastapi_config: str
-    base_dir: Optional[pathlib.Path] = pathlib.Path(__file__).parent.parent.parent
-    database_url: Optional[str] = f"sqlite:///{base_dir}/db.sqlite3"
-    database_connect_dict: Optional[dict] = {}
-    celery_broker_url: str = "redis://127.0.0.1:6379/0"
-    celery_result_backend: str = "redis://127.0.0.1:6379/0"
+class Settings:
+    BASE_DIR: pathlib.Path = pathlib.Path(__file__).parent.parent.parent
+    DATABASE_URL: str = os.environ.get(
+        "DATABASE_URL", f"sqlite:///{BASE_DIR}/db.sqlite3"
+    )
+    DATABASE_CONNECT_DICT: dict = {}
+    CELERY_BROKER_URL: str = os.environ.get(
+        "CELERY_BROKER_URL", "redis://127.0.0.1:6379/0"
+    )
+    CELERY_RESULT_BACKEND: str = os.environ.get(
+        "CELERY_RESULT_BACKEND", "redis://127.0.0.1:6379/0"
+    )
 
     class Config:
         env_file = ".env"
