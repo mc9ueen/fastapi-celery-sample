@@ -14,8 +14,8 @@ class Settings(BaseSettings):
     base_dir: Optional[pathlib.Path] = pathlib.Path(__file__).parent.parent.parent
     database_url: Optional[str] = f"sqlite:///{base_dir}/db.sqlite3"
     database_connect_dict: Optional[dict] = {}
-    celery_broker: str
-    celery_backend: str
+    celery_broker_url: str = "redis://127.0.0.1:6379/0"
+    celery_result_backend: str = "redis://127.0.0.1:6379/0"
 
     class Config:
         env_file = ".env"

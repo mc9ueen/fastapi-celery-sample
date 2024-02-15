@@ -9,8 +9,8 @@ app = create_app()
 
 celery = Celery(
     __name__,
-    broker=settings.celery_broker,
-    backend=settings.celery_backend,
+    broker=settings.celery_broker_url,
+    backend=settings.celery_result_backend,
 )
 
 
