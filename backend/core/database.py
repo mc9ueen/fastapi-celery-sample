@@ -6,7 +6,7 @@ from backend.core.config import settings
 
 
 engine = create_engine(
-    settings.database_url, connect_args=settings.database_connect_dict
+    settings.DATABASE_URL, connect_args=settings.DATABASE_CONNECT_DICT
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
